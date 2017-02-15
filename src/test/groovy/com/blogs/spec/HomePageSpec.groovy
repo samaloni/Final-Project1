@@ -1,17 +1,33 @@
 package com.blogs.spec
 
 import geb.spock.GebReportingSpec
-import com.blogs.page.HomePage
+import spock.lang.Stepwise
 
+import com.blogs.page.HomePage
+import com.blogs.page.SearchResultPage
+
+@Stepwise
 class HomePageSpec extends GebReportingSpec {
 	
-	def "test blog home page"() {
+	def "test wikipedia home page"() {
 		when:
 		to HomePage
 		
 		then:
-		page.title == "Myblog"
+		title == "Wikipedia"
+	}
+	
+	def "test searching 'US'"() {
+		given:
+		def wikiHomeURL = currentUrl
+		def searchString = 'US'
 		
+		when:
+		searchInput << searchString
+		searchButton.click()
+		
+		then:
+		at SearchResultPage
 	}
 
 }

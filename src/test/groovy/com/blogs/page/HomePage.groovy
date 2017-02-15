@@ -4,7 +4,15 @@ import geb.Page
 
 class HomePage extends Page {
 	
-//	static url = "http://localhost:4200"
-	static url = "http://www.google.com"
+	static url = ""
+	
+	static at = {
+		$(".central-textlogo").@title == "Wikipedia"
+	}
+	
+	static content = {
+		searchButton { $("button.pure-button", type: "submit") }
+		searchInput { $("input", id: "searchInput") }
+	}
 
 }
