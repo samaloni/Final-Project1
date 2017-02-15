@@ -10,7 +10,11 @@ class HomePageSpec extends GebReportingSpec {
 		to HomePage
 		
 		then:
-		page.title == "Myblog"
+		page.title == "Google"
+		
+		//searchButton == "Google Search"
+		
+				
 		
 	}
 
