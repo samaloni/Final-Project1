@@ -23,11 +23,36 @@ class HomePageSpec extends GebReportingSpec {
 		def searchString = 'US'
 		
 		when:
+		to HomePage
+		
+		and:
 		searchInput << searchString
 		searchButton.click()
 		
 		then:
 		at SearchResultPage
+	}
+	
+	def "test back to home page"() {
+		given:
+		def wikiHomeURL = currentUrl
+		def searchString = 'US'
+		
+		when:
+		to HomePage
+		
+		and:
+		searchInput << searchString
+		searchButton.click()
+		
+		then:
+		at SearchResultPage
+		
+		when:
+		wikiLogo.click()
+		
+		then:
+		currentUrl != wikiHomeURL
 	}
 
 }
