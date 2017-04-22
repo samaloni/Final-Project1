@@ -13,7 +13,5 @@ class NoPageObjectSpec extends GebReportingSpec {
 
 			assert $("h1.title")*.text() == ["My Blog"]
 		}
-		
-		
 	}
 }
