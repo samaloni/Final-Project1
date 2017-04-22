@@ -1,8 +1,10 @@
 package com.blogs.page
 
-class AddNewOwnerPage {
+import geb.Page
 
-	static url= ""
+class AddNewOwnerPage extends Page{
+
+	static url= "/owners/new"
 	
 	static at ={
 		$("h2").text() == "Owner"

@@ -15,7 +15,7 @@ class PetHomePage extends Page{
 		
 		homeTab {$("ul.nav").find("li",1).find("a")}
 		findOwner {$("ul.nav").find("li",2).find("a")}
-		image {$("img",class:".img-responsive")}
+		image {$("img.img-responsive")}
 		welcome {$("div h2")}
 		vets {$("ul.nav").find("li",3).find("a")}
 		error {$("ul.nav").find("li",4).find("a")}

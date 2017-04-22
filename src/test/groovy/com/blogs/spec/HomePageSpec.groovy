@@ -15,6 +15,8 @@ import com.blogs.page.AddNewOwnerPage
 
 class HomePageSpecs extends GebReportingSpec{
 	
+	
+	
 		def "test pet clinic home"(){
 			when:
 			to PetHomePage
@@ -29,19 +31,20 @@ class HomePageSpecs extends GebReportingSpec{
 			
 		}
 
-		@Ignore
+		
 		def "test home page image"() {
 			
-			def height = image.height()
-			def width =image.width()
+			def height = 170
+			def width =239
 			when:
 			to PetHomePage
 			
-			then:
-			image.mouseover()
+			and:
+			image.getHeight() == height
+			image.getWidth() == width
 			
-			height ==170
-			width == 239
+			then:
+			$("h2").text() == "Welcome"
 			
 		}
 		
@@ -70,11 +73,11 @@ class HomePageSpecs extends GebReportingSpec{
 			
 		}
 		
-		@Ignore
+		
 		def "test add new pet"(){
 			
-			def name = "chichi2"
-			def birthdate = "2015/1/8"
+			def name = "chichi5"
+			def birthdate = "2015/11/23"
 			when:
 			to OwnerInfoPage
 			
@@ -95,9 +98,10 @@ class HomePageSpecs extends GebReportingSpec{
 			at OwnerInfoPage
 			
 			title =="PetClinic :: a Spring Framework demonstration"
-			//newPetAdded.text() == "chichi2"
-			$("dd",contains(name)).exists()
 			
+			and:
+			//$("table dd:contains('chichi4')").css("text-decoration","underline")
+			Value.text()== name
 			
 		}
 		
@@ -129,6 +133,12 @@ class HomePageSpecs extends GebReportingSpec{
 		
 		def "test add new owner"(){
 			
+			def first = "Shrey"
+			def last = "Panse"
+			def address ="NeptuneApt"
+			def city ="Seattle"
+			def phone = "236732911"
+			
 			when:
 			to FindOwnerPage
 			
@@ -137,6 +147,20 @@ class HomePageSpecs extends GebReportingSpec{
 			
 			then:
 			at AddNewOwnerPage
+			
+			$("h2").text() == "Owner"
+			
+			and:
+			editFirstName << first
+			editLastName << last
+			editAddress << address
+			editCity  << city
+			editPhone << phone
+			updateButton.click()
+			
+			then:
+			title =="PetClinic :: a Spring Framework demonstration"
+			
 			
 		}
 		

@@ -19,6 +19,7 @@ class OwnerInfoPage extends Page {
 		addVisitLink {$("td a[href\$='visits/new']")}
 		//newPetAdded {$("table.table.table-striped").find("tr",0).find("td",0).find("dl.dl-horizontal").find("dd",0)}
 		newPetAdded {$("dl.dl-horizontal",0).find("dd",0)}
+		value{$("table dd:contains('chichi5')")}
 	}
 	
 }
