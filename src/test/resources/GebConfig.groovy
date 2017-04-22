@@ -11,5 +11,8 @@ environments {
 	}
 
 }
+baseUrl ="http://localhost:8080/"
 
-//baseUrl = "http://localhost:4200"
+//baseUrl = "https://www.wikipedia.org/"
+
+//baseUrl = "http://www.apple.com/"
