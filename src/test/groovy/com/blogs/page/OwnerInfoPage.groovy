@@ -16,10 +16,13 @@ class OwnerInfoPage extends Page {
 		editOwnerButton {$("a[href\$='11/edit']")}
 		addNewPetButton {$("a[href\$='pets/new']")}
 		editPetLink {$("td a[href\$='edit']")}
+		editPet2 {$(".container-fluid").find("a",4)}			//taking edit pet for 2nd pet added
+		addVisit2 {$(".container-fluid").find("a",3)}			//taking add visit for the first pet added
 		addVisitLink {$("td a[href\$='visits/new']")}
-		//newPetAdded {$("table.table.table-striped").find("tr",0).find("td",0).find("dl.dl-horizontal").find("dd",0)}
 		newPetAdded {$("dl.dl-horizontal",0).find("dd",0)}
-		value{$("table dd:contains('chichi5')")}
+		value{$("dd", text: contains("chichi8"))}
+		//visitValue {$("td", text: contains("xyz2"))}
+		visitValue {$("table.table-condensed").find("tbody").find("tr",text:contains("xyz2")).find("td",1)}
 	}
 	
 }

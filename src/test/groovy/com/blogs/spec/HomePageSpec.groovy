@@ -12,6 +12,10 @@ import com.blogs.page.OwnerInfoPage
 import com.blogs.page.AddNewPetPage
 import com.blogs.page.EditOwnerInfoPage
 import com.blogs.page.AddNewOwnerPage
+import com.blogs.page.EditPetInfoPage
+import com.blogs.page.AddVisitPage
+import com.blogs.page.VeterinariansPage
+import com.blogs.page.ErrorPage
 
 class HomePageSpecs extends GebReportingSpec{
 	
@@ -26,12 +30,14 @@ class HomePageSpecs extends GebReportingSpec{
 			homeTab.text()== "HOME"
 			findOwner.text()=="FIND OWNERS"
 			welcome.text()=="Welcome"
-			vets.text()=="VETERINARIANS"
-			error.text()=="ERROR"
+			vetsPage.text()=="VETERINARIANS"
+			errorPage.text()=="ERROR"
+			brand.isDisplayed()
+			image.isDisplayed()
 			
 		}
 
-		
+		@Ignore
 		def "test home page image"() {
 			
 			def height = 170
@@ -48,6 +54,7 @@ class HomePageSpecs extends GebReportingSpec{
 			
 		}
 		
+		@Ignore
 		def "find owner"(){
 			
 			def searchString ="Aloni"
@@ -73,10 +80,10 @@ class HomePageSpecs extends GebReportingSpec{
 			
 		}
 		
-		
+		@Ignore
 		def "test add new pet"(){
 			
-			def name = "chichi5"
+			def name = "chichi8"
 			def birthdate = "2015/11/23"
 			when:
 			to OwnerInfoPage
@@ -101,14 +108,16 @@ class HomePageSpecs extends GebReportingSpec{
 			
 			and:
 			//$("table dd:contains('chichi4')").css("text-decoration","underline")
-			Value.text()== name
+			value.text()== name
 			
 		}
 		
+		@Ignore
 		def "test edit owner info"(){
 			
 			def city = "Seattle"
 			def address ="Neptune Apt"
+		
 			
 			when:
 			to OwnerInfoPage
@@ -122,6 +131,7 @@ class HomePageSpecs extends GebReportingSpec{
 			$("h2").text() == "Owner"
 			
 			and:
+			//editCity.empty()
 			editAddress << address
 			editCity << city
 			updateButton.click()
@@ -131,6 +141,7 @@ class HomePageSpecs extends GebReportingSpec{
 				
 		}
 		
+		@Ignore
 		def "test add new owner"(){
 			
 			def first = "Shrey"
@@ -140,7 +151,7 @@ class HomePageSpecs extends GebReportingSpec{
 			def phone = "236732911"
 			
 			when:
-			to FindOwnerPage
+			to FindOwnerPage	
 			
 			and:
 			addOwner.click()
@@ -164,15 +175,157 @@ class HomePageSpecs extends GebReportingSpec{
 			
 		}
 		
+		@Ignore
+		def "text edit pet info"(){
+			
+			def name = "brow"
+			when:
+			at OwnerInfoPage
+			
+			and:
+			editPet2.click()
+			
+			then:
+			at EditPetInfoPage
+			$("h2").text() == "Pet"
+			//ownerName.text() == "Sampada Aloni"
+			
+			and:
+			petName.firstElement().clear()
+			petName << name
+			updateButton.click()
+			
+			then:
+			at OwnerInfoPage
+			
+			
+		}
 		
+		@Ignore
+		def "test add visit"(){
+			
+			def desc = "xyz2"
+			def name = "Sampada Aloni"
+			def date = "2017/05/3"
+			
+			when:
+			to OwnerInfoPage
+			
+			and:
+			addVisit2.click()
+			
+			then:
+			at AddVisitPage
+			
+			value.text() == name
+			
+			and:
+			visitDate.firstElement().clear()
+			visitDate << date
+			description << desc 
+			addVisitButton.click()
+			
+			then:
+			at OwnerInfoPage
+			
+			title =="PetClinic :: a Spring Framework demonstration"
+			
+			and:
+			visitValue.text() == desc
+			
+		}
 		
-		
-		
-		
-		
-		
-		
-		
-		
+		@Ignore
+		def "test veternarian page"(){
+			
+				when:
+				to PetHomePage
 				
+				and:
+				vetsPage.click()
+				
+				then:
+				at VeterinariansPage
+				
+				and:
+				$("h2").text() == "Veterinarians"
+				vetJames.text() == "James Carter"
+				vetHelen.text() == "Helen Leary"
+				vetLinda.text() == "Linda Douglas"
+				vetRafael.text() == "Rafael Ortega"
+				
+				viewXML.click()
+				
+				then:
+				$(".header").text() == "This XML file does not appear to have any style information associated with it. The document tree is shown below."
+				
+				and:
+				viewJSON.click()
+				
+				then:
+				$("pre", text: contains("vetList"))
+				
+		}
+		
+		@Ignore
+		def "test negative case petname"(){
+			
+			def petName = "amy"
+			def date = "2016/3/9"
+			
+			when:
+			to OwnerInfoPage
+			
+			and:
+			addNewPetButton.click()
+			
+			then:
+			at AddNewPetPage
+			$("h2").text() == "New Pet"
+			
+			and:
+			nameInput << petName
+			birthDateInput << date
+			updatePet.click()
+			
+			then:
+			$(".help-inline").text() == "is already in use"
+			
+		}
+		
+		@Ignore
+		def "test user not found negative"(){
+			
+			def user = "Peshave"
+			
+			when:
+			to FindOwnerPage
+			
+			and:
+			inputName << user
+			findOwnerButton.click()
+			
+			then:
+			$(".help-inline").text()=="has not been found"
+		}
+		
+		@Ignore		
+		def "test navigation to error"(){
+		
+			when:
+			to PetHomePage
+			
+			and:
+			errorPage.click()
+			
+			then:
+			at ErrorPage
+			
+			and:
+			$("h2").text() == "Something happened..."
+			$("p").text() =="Expected: controller used to showcase what happens when an exception is thrown"
+			image.isDisplayed()
+			
+					
+		}
 }
